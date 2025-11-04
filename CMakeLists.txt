@@ -74,6 +74,8 @@ add_library(
     include/djinterop/engine/v3/quick_cues_blob.hpp
     include/djinterop/engine/v3/track_data_blob.hpp
     include/djinterop/engine/v3/track_table.hpp
+    include/djinterop/engine/v3/album_art_table.hpp
+    include/djinterop/engine/v3/export_artwork.hpp
     include/djinterop/exceptions.hpp
     include/djinterop/musical_key.hpp
     include/djinterop/pad_color.hpp
@@ -170,9 +172,12 @@ add_library(
     src/djinterop/engine/v2/playlist_table.cpp
     src/djinterop/engine/v2/quick_cues_blob.cpp
     src/djinterop/engine/v2/track_data_blob.cpp
-    src/djinterop/engine/v2/track_table.cpp
     src/djinterop/engine/v2/track_impl.cpp
-    src/djinterop/engine/v2/track_impl.hpp
+    src/djinterop/engine/v2/track_table.cpp
+    src/djinterop/engine/v3/track_table.cpp
+    src/djinterop/engine/v3/album_art_table.cpp
+    src/djinterop/engine/v3/export_artwork.cpp
+    src/djinterop/album_art.cpp
     src/djinterop/engine/v3/convert_beatgrid.hpp
     src/djinterop/engine/v3/convert_hot_cues.hpp
     src/djinterop/engine/v3/convert_loops.hpp
@@ -189,6 +194,8 @@ add_library(
     src/djinterop/engine/v3/track_impl.cpp
     src/djinterop/engine/v3/track_impl.hpp
     src/djinterop/engine/v3/track_table.cpp
+        src/djinterop/engine/v3/album_art_table.cpp
+        src/djinterop/album_art.cpp
     src/djinterop/impl/crate_impl.cpp
     src/djinterop/impl/crate_impl.hpp
     src/djinterop/impl/database_impl.hpp
@@ -320,6 +327,8 @@ install(FILES
     include/djinterop/engine/v3/quick_cues_blob.hpp
     include/djinterop/engine/v3/track_data_blob.hpp
     include/djinterop/engine/v3/track_table.hpp
+    include/djinterop/engine/v3/album_art_table.hpp
+    include/djinterop/engine/v3/export_artwork.hpp
     DESTINATION "${DJINTEROP_INSTALL_INCLUDEDIR}/engine/v3")
 
 
@@ -389,7 +398,8 @@ if (Boost_FOUND)
         target_include_directories(${test_executable_name} PUBLIC
                 ${Boost_INCLUDE_DIRS}
                 ${CMAKE_CURRENT_BINARY_DIR}/include
-                include)
+        include
+        ${CMAKE_CURRENT_SOURCE_DIR}/ext/sqlite_modern_cpp)
         target_link_libraries(${test_executable_name} PUBLIC
                 DjInterop
                 ${Boost_LIBRARIES})
@@ -408,6 +418,7 @@ if (Boost_FOUND)
     add_djinterop_test(engine/v2/ track_table_test)
     add_djinterop_test(engine/v3/ performance_data_table_test)
     add_djinterop_test(engine/v3/ track_table_test)
+    add_djinterop_test(engine/v3/ export_artwork_test)
 
 else()
     message(STATUS "Unit tests not available, as Boost cannot be found")

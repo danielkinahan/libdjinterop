@@ -61,6 +61,11 @@ void track::set_album(std::optional<std::string> album) const
     pimpl_->set_album(album);
 }
 
+std::optional<album_art> track::artwork() const
+{
+    return pimpl_->artwork();
+}
+
 void track::set_album(std::string album) const
 {
     set_album(std::make_optional(album));

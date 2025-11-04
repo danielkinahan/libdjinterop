@@ -24,6 +24,7 @@
 #include <vector>
 
 #include <djinterop/performance_data.hpp>
+#include <djinterop/album_art.hpp>
 
 namespace djinterop
 {
@@ -92,6 +93,7 @@ public:
     virtual void set_publisher(std::optional<std::string> publisher) = 0;
     virtual std::optional<int> rating() = 0;
     virtual void set_rating(std::optional<int> rating) = 0;
+    virtual std::optional<album_art> artwork() = 0;
     virtual std::string relative_path() = 0;
     virtual void set_relative_path(std::string relative_path) = 0;
     virtual std::optional<unsigned long long> sample_count() = 0;

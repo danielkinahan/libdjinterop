@@ -21,6 +21,7 @@
 
 #include <djinterop/exceptions.hpp>
 #include <djinterop/track.hpp>
+#include <djinterop/album_art.hpp>
 
 #include "../../util/convert.hpp"
 #include "../../util/filesystem.hpp"
@@ -263,6 +264,19 @@ std::optional<std::string> track_impl::album()
 void track_impl::set_album(std::optional<std::string> album)
 {
     library_->track().set_album(id(), album);
+}
+
+std::optional<djinterop::album_art> track_impl::artwork()
+{
+    const auto track_row_maybe = library_->track().get(id());
+    if (!track_row_maybe)
+        throw djinterop::track_deleted{id()};
+
+    const auto album_art_id = track_row_maybe->album_art_id;
+    if (album_art_id == ALBUM_ART_ID_NONE)
+        return std::nullopt;
+
+    return library_->album_art().get(album_art_id);
 }
 
 std::optional<std::string> track_impl::artist()

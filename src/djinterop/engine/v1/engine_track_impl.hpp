@@ -104,6 +104,7 @@ public:
     void set_publisher(std::optional<std::string> publisher) override;
     std::optional<int> rating() override;
     void set_rating(std::optional<int> rating) override;
+    std::optional<djinterop::album_art> artwork() override;
     std::string relative_path() override;
     void set_relative_path(std::string relative_path) override;
     std::optional<unsigned long long> sample_count() override;

@@ -29,6 +29,7 @@
 #include <djinterop/engine/v3/playlist_entity_table.hpp>
 #include <djinterop/engine/v3/playlist_table.hpp>
 #include <djinterop/engine/v3/track_table.hpp>
+#include <djinterop/engine/v3/album_art_table.hpp>
 
 namespace djinterop::engine
 {
@@ -73,15 +74,19 @@ public:
     /// Gets a class representing the `Track` table.
     track_table track() const noexcept { return track_; }
 
+    /// Gets a class representing the `AlbumArt` table.
+    album_art_table album_art() const noexcept { return album_art_; }
+
     /// Construct an instance of the class using an Engine library context.
     ///
     /// \param context Engine library context.
     explicit engine_library(std::shared_ptr<engine_library_context> context) :
         base_engine_library{std::move(context)}, information_{context_},
         performance_data_{context_}, playlist_entity_{context_},
-        playlist_{context_}, track_{context_}
+        playlist_{context_}, track_{context_}, album_art_{context_}
     {
     }
+
 
     /// Make a new, empty library of a given version.
     ///
@@ -132,6 +137,7 @@ private:
     playlist_entity_table playlist_entity_;
     playlist_table playlist_;
     track_table track_;
+    album_art_table album_art_;
 };
 
 }  // namespace djinterop::engine::v3

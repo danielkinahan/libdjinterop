@@ -22,6 +22,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <filesystem>
 
 #include <djinterop/config.hpp>
 
@@ -36,7 +37,20 @@ public:
     std::string hash_hex_str;
     std::vector<image_data_type> image_data;
 
-    // TODO - implement rest of album_art class
+    // Return true if no image data is present.
+    bool empty() const noexcept { return image_data.empty(); }
+
+    // Try to detect a MIME type from the image bytes. Returns empty string
+    // when unknown.
+    std::string mime_type() const noexcept;
+
+    // Suggest a filename extension (without dot) based on the data, or
+    // return an empty string when unknown.
+    std::string suggested_extension() const noexcept;
+
+    // Write the image data to the given path. Throws std::system_error on
+    // failure to write.
+    void write_to_file(const std::filesystem::path& path) const;
 };
 
 }  // namespace djinterop

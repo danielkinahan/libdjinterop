@@ -383,6 +383,14 @@ std::optional<std::string> track_impl::genre()
     return library_->track().get_genre(id());
 }
 
+std::optional<djinterop::album_art> track_impl::artwork()
+{
+    // Engine v2 currently doesn't expose a dedicated AlbumArt table via
+    // engine_library; return no artwork here. This is a safe placeholder and
+    // can be implemented properly later.
+    return std::nullopt;
+}
+
 void track_impl::set_genre(std::optional<std::string> genre)
 {
     library_->track().set_genre(id(), genre);

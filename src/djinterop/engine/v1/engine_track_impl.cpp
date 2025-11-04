@@ -554,6 +554,13 @@ std::optional<std::string> engine_track_impl::artist()
     return storage_->get_meta_data(id(), metadata_str_type::artist);
 }
 
+std::optional<djinterop::album_art> engine_track_impl::artwork()
+{
+    // Engine v1 storage does not support a separate AlbumArt table; return
+    // no artwork for v1 databases.
+    return std::nullopt;
+}
+
 void engine_track_impl::set_artist(std::optional<std::string> artist)
 {
     return storage_->set_meta_data(id(), metadata_str_type::artist, artist);

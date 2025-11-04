@@ -28,6 +28,7 @@
 #include <vector>
 
 #include <djinterop/config.hpp>
+#include <djinterop/album_art.hpp>
 #include <djinterop/musical_key.hpp>
 #include <djinterop/performance_data.hpp>
 #include <djinterop/semantic_version.hpp>
@@ -66,6 +67,9 @@ public:
 
     /// Obtain a snapshot of the track's current state.
     track_snapshot snapshot() const;
+
+    /// Returns the album artwork for the track, if present.
+    std::optional<album_art> artwork() const;
 
     /// Update the track with the contents of the provided snapshot.
     void update(const track_snapshot& snapshot);
