@@ -66,7 +66,7 @@ track_row snapshot_to_row(
             "auto-determine file type based on extension"};
     }
 
-    int64_t album_art_id = ALBUM_ART_ID_NONE;
+    auto album_art_id = convert::write::album_art_id(snapshot.album_art_id);
     std::chrono::system_clock::time_point date_created;
     std::chrono::system_clock::time_point date_added =
         std::chrono::system_clock::now();
@@ -196,6 +196,7 @@ track_snapshot track_impl::snapshot() const
     snapshot.album = row.album;
     snapshot.artist = row.artist;
     snapshot.average_loudness = convert::read::average_loudness(row.track_data);
+    snapshot.album_art_id = convert::read::album_art_id(row.album_art_id);
     snapshot.beatgrid =
         convert::read::beatgrid_markers(row.beat_data.adjusted_beat_grid);
     snapshot.bitrate = djinterop::util::optional_static_cast<int>(row.bitrate);

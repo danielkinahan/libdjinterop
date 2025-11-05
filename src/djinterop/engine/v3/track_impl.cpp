@@ -83,7 +83,7 @@ track_row snapshot_to_track_row(
         .bitrate =
             djinterop::util::optional_static_cast<int64_t>(snapshot.bitrate),
         .bpm_analyzed = converted_bpm.bpm_analyzed,
-        .album_art_id = ALBUM_ART_ID_NONE,
+        .album_art_id = convert::write::album_art_id(snapshot.album_art_id),
         .file_bytes =
             djinterop::util::optional_static_cast<int64_t>(snapshot.file_bytes),
         .title = snapshot.title,
@@ -200,6 +200,7 @@ track_snapshot track_impl::snapshot() const
     snapshot.artist = track_row.artist;
     snapshot.average_loudness =
         convert::read::average_loudness(performance_data_row.track_data);
+    snapshot.album_art_id = convert::read::album_art_id(track_row.album_art_id);
     snapshot.beatgrid = convert::read::beatgrid_markers(
         performance_data_row.beat_data.adjusted_beat_grid);
     snapshot.bitrate =

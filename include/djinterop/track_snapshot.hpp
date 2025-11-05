@@ -58,6 +58,9 @@ struct track_snapshot
     /// The average loudness metadata.
     std::optional<double> average_loudness;
 
+    /// The album art ID (reference to the AlbumArt table).
+    std::optional<int64_t> album_art_id;
+
     /// The beatgrid.
     std::vector<beatgrid_marker> beatgrid;
 
@@ -132,16 +135,16 @@ struct track_snapshot
         const track_snapshot& lhs, const track_snapshot& rhs) noexcept
     {
         return std::tie(
-                   lhs.album, lhs.artist, lhs.average_loudness, lhs.beatgrid,
-                   lhs.bitrate, lhs.bpm, lhs.comment, lhs.composer,
+                   lhs.album, lhs.artist, lhs.average_loudness, lhs.album_art_id,
+                   lhs.beatgrid, lhs.bitrate, lhs.bpm, lhs.comment, lhs.composer,
                    lhs.duration, lhs.file_bytes, lhs.genre, lhs.hot_cues,
                    lhs.key, lhs.last_played_at, lhs.loops, lhs.main_cue,
                    lhs.publisher, lhs.rating, lhs.relative_path,
                    lhs.sample_count, lhs.sample_rate, lhs.title,
                    lhs.track_number, lhs.waveform, lhs.year) ==
                std::tie(
-                   rhs.album, rhs.artist, rhs.average_loudness, rhs.beatgrid,
-                   rhs.bitrate, rhs.bpm, rhs.comment, rhs.composer,
+                   rhs.album, rhs.artist, rhs.average_loudness, rhs.album_art_id,
+                   rhs.beatgrid, rhs.bitrate, rhs.bpm, rhs.comment, rhs.composer,
                    rhs.duration, rhs.file_bytes, rhs.genre, rhs.hot_cues,
                    rhs.key, rhs.last_played_at, rhs.loops, rhs.main_cue,
                    rhs.publisher, rhs.rating, rhs.relative_path,
@@ -167,6 +170,7 @@ struct track_snapshot
 
         PRINT_FIELD(artist);
         PRINT_FIELD(average_loudness);
+        PRINT_FIELD(album_art_id);
         PRINT_FIELD(beatgrid);
         PRINT_FIELD(bitrate);
         PRINT_FIELD(bpm);
